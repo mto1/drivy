@@ -1,5 +1,5 @@
 'use strict';
-//TEST 1
+
 //list of cars
 //useful for ALL exercises
 var cars = [{
