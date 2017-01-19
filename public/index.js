@@ -323,3 +323,28 @@ function Commission(rentals){
         rentals[j].commission.drivy = drivy;
     }
 }
+//Exercice4
+function Franchise(rentals){
+	//console.log("*Franchise*");
+	for (var j = 0; j < rentals.length; j++)
+    {
+        //console.log(j);
+        //console.log("Id : " + rentals[j].id);
+		var optionReduction = rentals[j].options.deductibleReduction;
+        //console.log("Option : " + optionReduction); 
+		var price = rentals[j].price;
+        //console.log("Prix : " + price);
+
+		if(optionReduction == true)
+		{
+			var beginDate = new Date(rentals[j].pickupDate);
+			var returnDate = new Date(rentals[j].returnDate);
+			var numberOfDay = dateDiff(beginDate, returnDate);
+			//console.log("Nombre de jour de location = " + numberOfDay);
+			price += (numberOfDay*4)
+		}
+		rentals[j].price = price
+		//console.log("New Prix : " + rentals[j].price)
+
+    }
+}
