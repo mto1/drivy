@@ -295,3 +295,31 @@ function NewPricePerConducteur(rentals){
 
     }
 }
+//Exercice3
+function Commission(rentals){
+    //console.log("*Commission*");
+	for (var j = 0; j < rentals.length; j++)
+    {
+        //console.log(j);
+        //console.log("Id : " + rentals[j].id);
+        //console.log("Car ID : " + rentals[j].carId);               
+        //console.log("Prix : " + rentals[j].price);
+
+        var assurance = rentals[j].price * 0.3 * 0.5
+        //console.log("Assurance : " + assurance);
+        rentals[j].commission.insurance = assurance;
+
+        var beginDate = new Date(rentals[j].pickupDate);
+        var returnDate = new Date(rentals[j].returnDate);
+        var numberOfDay = dateDiff(beginDate, returnDate);
+        //console.log("Nombre de jour de location = " + numberOfDay);
+
+        var assistance = numberOfDay;
+        //console.log("Assistance = " + numberOfDay);
+        rentals[j].commission.assistance = assistance;
+
+        var drivy = (rentals[j].price * 0.3) - assurance - assistance;
+        //console.log("Drivy = " + drivy);
+        rentals[j].commission.drivy = drivy;
+    }
+}
