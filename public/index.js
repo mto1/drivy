@@ -197,7 +197,7 @@ function PricePerKm(Id){
 }
 
 //Exercice1
-function PricePerConducteur(rentals){
+function PricePerConducteur(rentals){	
 	//console.log("*PricePerConducteur*");
     var j = 0;
     while (j < rentals.length) {
@@ -229,7 +229,69 @@ function PricePerConducteur(rentals){
         var price = (PriceK * distance) + (PriceD * numberOfDay);
         rentals[j].price = price;
        // console.log("Prix : " + rentals[j].price);
-
         j += 1;
+    }
+}
+//Exercice2
+function NewPricePerConducteur(rentals){
+	//console.log("*NewPricePerConducteur*");
+    for (var j = 0; j < rentals.length;j++)
+    {
+        //console.log(j);
+
+        //console.log("Id : " + rentals[j].id)
+
+        var beginDate = new Date(rentals[j].pickupDate);
+        //console.log("Debut de location    " + beginDate);
+
+        var returnDate = new Date(rentals[j].returnDate);
+        //console.log("Fin de location      " + returnDate);
+
+        var numberOfDay = dateDiff(beginDate, returnDate);
+        //console.log("Nombre de jour de location = " + numberOfDay);
+
+        var carId = rentals[j].carId;
+        //console.log("Car ID : " + carId);
+
+        var PriceD = PricePerDay(carId)
+        //console.log("Price/Day : " + PriceD);
+
+        var PriceK = PricePerKm(carId);
+        //console.log("Price/Km : " + PriceK);
+
+        var distance = rentals[j].distance;
+        //console.log("Distance parcouru = " + distance);
+
+        var price = (PriceK * distance) + (PriceD * numberOfDay);
+        rentals[j].price = price;
+        //console.log("Prix : " + price);
+
+        var newprice = 0;
+        for(var i = 1; i <= numberOfDay; i++)
+        {
+            if(i==1) // Premier Jour de location
+            {
+                newprice += PriceD;
+            }
+            else if(i>1 && i<5)
+            {
+                newprice += (PriceD*0.9);
+            }
+            else if (i > 4 && i < 11)
+            {
+                newprice += (PriceD * 0.7);
+            }
+            else if (i > 10)
+            {
+                newprice += (PriceD * 0.5);
+            }
+        }
+        newprice += (PriceK * distance);
+		rentals[j].price = newprice;
+		
+        //console.log("Prix avec réduction : " + newprice);
+		//console.log("Prix avec réduction : " + rentals[j].price);
+
+
     }
 }
