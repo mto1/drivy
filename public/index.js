@@ -348,3 +348,67 @@ function Franchise(rentals){
 
     }
 }
+//Exercice5
+function PayActors(actors){
+	for(var i=0;i<actors.length;i++)
+	{
+		for(var j=0;j<rentals.length;j++)
+		{
+			if(actors[i].rentalId == rentals[j].id)
+			{
+				//console.log(actors[i].rentalId)
+				//console.log(rentals[j].id)
+				for(var k = 0; k<actors[i].payment.length;k++)
+				{
+					if(actors[i].payment[k].who == "driver")
+					{
+						console.log(i);					
+						var driver = rentals[j].price;
+						console.log(actors[i].payment[k].who + " " + driver)
+						actors[i].payment[k].amount = driver;
+					}
+					else if(actors[i].payment[k].who == "owner")
+					{												
+						var owner = (rentals[j].price*0.7);
+						console.log(actors[i].payment[k].who + " " + owner)
+						actors[i].payment[k].amount = owner;
+					}
+					else if(actors[i].payment[k].who == "insurance")
+					{												
+						var insurance = rentals[j].commission.insurance;
+						console.log(actors[i].payment[k].who + " " + insurance)
+						actors[i].payment[k].amount = insurance;
+					}
+					else if(actors[i].payment[k].who == "assistance")
+					{											
+						var assistance = rentals[j].commission.assistance;
+						console.log(actors[i].payment[k].who + " " + assistance)
+						actors[i].payment[k].amount = assistance;
+					}
+					else if(actors[i].payment[k].who == "drivy")
+					{								
+						var optionReduction = rentals[j].options.deductibleReduction;
+						var PriceOptionReduction = 0
+						if(optionReduction == true)
+						{
+							var beginDate = new Date(rentals[j].pickupDate);
+							var returnDate = new Date(rentals[j].returnDate);
+							var numberOfDay = dateDiff(beginDate, returnDate);
+							//console.log("Nombre de jour de location = " + numberOfDay);
+							var PriceOptionReduction = (numberOfDay*4)
+						}
+						
+						rentals[j].commission.drivy +=  PriceOptionReduction;
+						console.log(actors[i].payment[k].who + " " + rentals[j].commission.drivy);
+						actors[i].payment[k].amount = rentals[j].commission.drivy;
+					}
+					
+				}								
+				break;
+			}
+		}
+	}
+	
+	
+	
+}
