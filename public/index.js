@@ -169,3 +169,67 @@ console.log(cars);
 console.log(rentals);
 console.log(actors);
 console.log(rentalModifications);
+
+function dateDiff(d1, d2){
+  d1 = d1.getTime() / 86400000;
+  d2 = d2.getTime() / 86400000;
+  return new Number(d2 - d1 +1).toFixed(0);
+}
+function PricePerDay(Id){
+	for(var i=0;i<cars.length;i++)
+	{
+		if(cars[i].id == Id)
+		{
+			return cars[i].pricePerDay;
+			break;
+		}
+	}
+}
+function PricePerKm(Id){
+	for(var i=0;i<cars.length;i++)
+	{
+		if(cars[i].id == Id)
+		{
+			return cars[i].pricePerKm;
+			break;
+		}
+	}
+}
+
+//Exercice1
+function PricePerConducteur(rentals){
+	//console.log("*PricePerConducteur*");
+    var j = 0;
+    while (j < rentals.length) {
+       // console.log(j);
+
+        //console.log("Id : " + rentals[j].id)
+
+        var beginDate = new Date(rentals[j].pickupDate);
+        //console.log("Debut de location    " + beginDate);
+
+        var returnDate = new Date(rentals[j].returnDate);
+        //console.log("Fin de location      " + returnDate);
+
+        var numberOfDay = dateDiff(beginDate, returnDate);
+        //console.log("Nombre de jour de location = " + numberOfDay);
+
+        var carId = rentals[j].carId;
+        //console.log("Car ID : " + carId);
+
+        var PriceD = PricePerDay(carId)
+        //console.log("Price/Day : " + PriceD);
+
+        var PriceK = PricePerKm(carId);
+        //console.log("Price/Km : " + PriceK);
+
+        var distance = rentals[j].distance;
+        //console.log("Distance parcouru = " + distance);
+
+        var price = (PriceK * distance) + (PriceD * numberOfDay);
+        rentals[j].price = price;
+       // console.log("Prix : " + rentals[j].price);
+
+        j += 1;
+    }
+}
