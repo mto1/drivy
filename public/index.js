@@ -165,10 +165,17 @@ var rentalModifications = [{
   'pickupDate': '2015-12-05'
 }];
 
-console.log(cars);
+//console.log(cars);
 console.log(rentals);
 console.log(actors);
-console.log(rentalModifications);
+//console.log(rentalModifications);
+
+PricePerConducteur(rentals);
+NewPricePerConducteur(rentals);
+Commission(rentals);
+Franchise(rentals);
+PayActors(actors);
+RentalsModification(rentals);
 
 function dateDiff(d1, d2){
   d1 = d1.getTime() / 86400000;
@@ -201,7 +208,7 @@ function PricePerConducteur(rentals){
 	//console.log("*PricePerConducteur*");
     var j = 0;
     while (j < rentals.length) {
-       // console.log(j);
+        //console.log(j);
 
         //console.log("Id : " + rentals[j].id)
 
@@ -358,31 +365,33 @@ function PayActors(actors){
 			{
 				//console.log(actors[i].rentalId)
 				//console.log(rentals[j].id)
+
 				for(var k = 0; k<actors[i].payment.length;k++)
 				{
+					
 					if(actors[i].payment[k].who == "driver")
 					{
-						console.log(i);					
+						//console.log(i);					
 						var driver = rentals[j].price;
-						console.log(actors[i].payment[k].who + " " + driver)
+						//console.log(actors[i].payment[k].who + " " + driver)
 						actors[i].payment[k].amount = driver;
 					}
 					else if(actors[i].payment[k].who == "owner")
 					{												
 						var owner = (rentals[j].price*0.7);
-						console.log(actors[i].payment[k].who + " " + owner)
+						//console.log(actors[i].payment[k].who + " " + owner)
 						actors[i].payment[k].amount = owner;
 					}
 					else if(actors[i].payment[k].who == "insurance")
 					{												
 						var insurance = rentals[j].commission.insurance;
-						console.log(actors[i].payment[k].who + " " + insurance)
+						//console.log(actors[i].payment[k].who + " " + insurance)
 						actors[i].payment[k].amount = insurance;
 					}
 					else if(actors[i].payment[k].who == "assistance")
 					{											
 						var assistance = rentals[j].commission.assistance;
-						console.log(actors[i].payment[k].who + " " + assistance)
+						//console.log(actors[i].payment[k].who + " " + assistance)
 						actors[i].payment[k].amount = assistance;
 					}
 					else if(actors[i].payment[k].who == "drivy")
@@ -399,7 +408,7 @@ function PayActors(actors){
 						}
 						
 						rentals[j].commission.drivy +=  PriceOptionReduction;
-						console.log(actors[i].payment[k].who + " " + rentals[j].commission.drivy);
+						//console.log(actors[i].payment[k].who + " " + rentals[j].commission.drivy);
 						actors[i].payment[k].amount = rentals[j].commission.drivy;
 					}
 					
@@ -407,8 +416,153 @@ function PayActors(actors){
 				break;
 			}
 		}
+	}	
+}
+//Exercice6
+function RentalsModification(rentals)
+{
+	var OldPrice=[];
+	for(var i=0;i<rentals.length;i++)
+	{
+		for(var j=0;j<rentalModifications.length;j++)
+		{
+			if(actors[i].rentalId == rentalModifications[j].rentalId)
+			{				
+				//console.log(actors[i].rentalId)
+				var Id = rentalModifications[j].rentalId;
+				for(var k = 0; k<actors[i].payment.length;k++)
+				{					
+					if(actors[i].payment[k].who == "driver")
+					{
+						var OldPriceDriver = actors[i].payment[k].amount
+						//console.log("OldPriceDriver " + OldPriceDriver)
+					}
+					else if(actors[i].payment[k].who == "owner")
+					{
+						var OldPriceOwner = actors[i].payment[k].amount
+						//console.log("OldPriceowner "+OldPriceOwner)
+					}					
+					else if(actors[i].payment[k].who == "insurance")
+					{
+						var OldPriceInsurance = actors[i].payment[k].amount
+						//console.log("OldPriceinsurance "+OldPriceInsurance)
+					}
+					else if(actors[i].payment[k].who == "assistance")
+					{
+						var OldPriceAssistance = actors[i].payment[k].amount
+						//console.log("OldPriceAssist "+ OldPriceAssistance)
+					}
+					else if(actors[i].payment[k].who == "drivy")
+					{
+						var OldPriceDrivy = actors[i].payment[k].amount
+						//console.log("OldPriceDrivy " +OldPriceDrivy)
+					}					
+				}
+				OldPrice[j]={Id, OldPriceDriver, OldPriceOwner, OldPriceInsurance, OldPriceAssistance, OldPriceDrivy}
+				console.log(OldPrice[j]);
+			}
+		
+			
+			if(rentals[i].id == rentalModifications[j].rentalId)
+			{
+				//console.log(j);
+				//console.log("Vieux Prix "+ rentals[i].price)				
+				//console.log(rentals[i].distance)
+				//console.log(rentalModifications[j].distance)				
+				if( rentalModifications[j].distance != undefined)
+				{
+					rentals[i].distance = rentalModifications[j].distance;
+				}
+				//console.log(rentals[i].distance + " " + rentalModifications[j].distance)
+				
+				//console.log(rentals[i].pickupDate)
+				//console.log(rentalModifications[j].pickupDate)
+				if( rentalModifications[j].pickupDate != undefined)
+				{
+					rentals[i].pickupDate = rentalModifications[j].pickupDate;
+				}			
+				//console.log(rentals[i].pickupDate + " " + rentalModifications[j].pickupDate)
+				
+				//console.log(rentals[i].returnDate)
+				//console.log(rentalModifications[j].returnDate)
+				if(rentalModifications[j].returnDate != undefined)
+				{
+					rentals[i].returnDate = rentalModifications[j].returnDate;
+				}
+				//console.log(rentals[i].returnDate + " " +  rentalModifications[j].returnDate);		
+				
+				break;
+			}
+		}
 	}
 	
+	//console.log("-------------- Mise à Jour ------------------")
+	PricePerConducteur(rentals);
+	NewPricePerConducteur(rentals);
+	Commission(rentals);
+	Franchise(rentals);
+	PayActors(actors);
+	//console.log("--------------Affichage de la Mise à Jour ------------------")
+	var NewPrice=[];
+	for(var i=0;i<rentals.length;i++)
+	{
+		for(var j=0;j<rentalModifications.length;j++)
+		{
+			if(actors[i].rentalId == rentalModifications[j].rentalId)
+			{				
+				for(var k = 0; k<actors[i].payment.length;k++)
+				{
+					if(actors[i].payment[k].who == "driver")
+					{
+						var NewPriceDriver = actors[i].payment[k].amount
+						//console.log("NewPriceDriver " + NewPriceDriver)
+					}
+					else if(actors[i].payment[k].who == "owner")
+					{
+						var NewPriceOwner = actors[i].payment[k].amount
+						//console.log("NewPriceowner "+NewPriceOwner)
+					}					
+					else if(actors[i].payment[k].who == "insurance")
+					{
+						var NewPriceInsurance = actors[i].payment[k].amount
+						//console.log("NewPriceinsurance "+NewPriceInsurance)
+					}
+					else if(actors[i].payment[k].who == "assistance")
+					{
+						var NewPriceAssistance = actors[i].payment[k].amount
+						//console.log("NewPriceAssist "+ NewPriceAssistance)
+					}
+					else if(actors[i].payment[k].who == "drivy")
+					{
+						var NewPriceDrivy = actors[i].payment[k].amount
+						//console.log("NewPriceDrivy " +NewPriceDrivy)
+					}
+					
+				}
+				var Id = actors[i].rentalId;
+				NewPrice[j]={Id, NewPriceDriver, NewPriceOwner, NewPriceInsurance, NewPriceAssistance, NewPriceDrivy}
+				console.log(NewPrice[j]);
+				console.log(OldPrice.length);
+			}
 	
-	
+		}
+	}
+	var DiffPrice = [];
+	for( var x = 0; x<OldPrice.length;x++)
+	{
+		
+		var DiffPriceDriver = NewPrice[x].NewPriceDriver - OldPrice[x].OldPriceDriver;
+		//console.log(DiffPriceDriver);
+		var DiffPriceOwner = NewPrice[x].NewPriceOwner - OldPrice[x].OldPriceOwner; 
+		//console.log(DiffPriceOwner);
+		var DiffPriceInsurance = NewPrice[x].NewPriceInsurance - OldPrice[x].OldPriceInsurance; 
+		//console.log(DiffPriceInsurance);
+		var DiffPriceAssistance = NewPrice[x].NewPriceAssistance - OldPrice[x].OldPriceAssistance; 
+		//console.log(DiffPriceAssistance);
+		var DiffPriceDrivy = NewPrice[x].NewPriceDrivy - OldPrice[x].OldPriceDrivy; 
+		//console.log(DiffPriceDrivy);
+		var ID = NewPrice[x].Id;
+		DiffPrice[x] = {ID, DiffPriceDriver, DiffPriceOwner, DiffPriceInsurance, DiffPriceAssistance, DiffPriceDrivy};
+		console.log(DiffPrice[x]);
+	}
 }
