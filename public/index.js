@@ -165,17 +165,44 @@ var rentalModifications = [{
   'pickupDate': '2015-12-05'
 }];
 
-//console.log(cars);
+console.log("---------- INITIALISATION DE LA BASE DE DONNEES ----------");
+console.log(cars);
 console.log(rentals);
 console.log(actors);
-//console.log(rentalModifications);
+console.log(rentalModifications);
+console.log("---------------- FIN DE L'INITIALISATION -----------------");
+console.log("");
 
+console.log("------------------ EXECUTION EXERCICE 1 ------------------");
 PricePerConducteur(rentals);
+console.log(rentals);
+console.log("");
+
+console.log("------------------ EXECUTION EXERCICE 2 ------------------");
 NewPricePerConducteur(rentals);
+console.log(rentals);
+console.log("");
+
+console.log("------------------ EXECUTION EXERCICE 3 ------------------");
 Commission(rentals);
+console.log(rentals);
+console.log("");
+
+console.log("------------------ EXECUTION EXERCICE 4 ------------------");
 Franchise(rentals);
+console.log(rentals);
+console.log("");
+
+console.log("------------------ EXECUTION EXERCICE 5 ------------------");
 PayActors(actors);
+console.log(actors);
+console.log("");
+
+console.log("------------------ EXECUTION EXERCICE 6 ------------------");
 RentalsModification(rentals);
+console.log("");
+
+
 
 function dateDiff(d1, d2){
   d1 = d1.getTime() / 86400000;
@@ -419,8 +446,7 @@ function PayActors(actors){
 	}	
 }
 //Exercice6
-function RentalsModification(rentals)
-{
+function RentalsModification(rentals){
 	var OldPrice=[];
 	for(var i=0;i<rentals.length;i++)
 	{
@@ -459,7 +485,7 @@ function RentalsModification(rentals)
 					}					
 				}
 				OldPrice[j]={Id, OldPriceDriver, OldPriceOwner, OldPriceInsurance, OldPriceAssistance, OldPriceDrivy}
-				console.log(OldPrice[j]);
+				//console.log(OldPrice[j]);
 			}
 		
 			
@@ -541,8 +567,8 @@ function RentalsModification(rentals)
 				}
 				var Id = actors[i].rentalId;
 				NewPrice[j]={Id, NewPriceDriver, NewPriceOwner, NewPriceInsurance, NewPriceAssistance, NewPriceDrivy}
-				console.log(NewPrice[j]);
-				console.log(OldPrice.length);
+				//console.log(NewPrice[j]);
+				//console.log(OldPrice.length);
 			}
 	
 		}
@@ -562,7 +588,25 @@ function RentalsModification(rentals)
 		var DiffPriceDrivy = NewPrice[x].NewPriceDrivy - OldPrice[x].OldPriceDrivy; 
 		//console.log(DiffPriceDrivy);
 		var ID = NewPrice[x].Id;
+		console.log("Voici ce qu'il reste a payer/rembourser apres modification de la reservation " + ID);
 		DiffPrice[x] = {ID, DiffPriceDriver, DiffPriceOwner, DiffPriceInsurance, DiffPriceAssistance, DiffPriceDrivy};
 		console.log(DiffPrice[x]);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
